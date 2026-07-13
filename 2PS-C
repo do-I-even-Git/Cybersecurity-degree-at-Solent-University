@@ -1,71 +1,79 @@
-/******************************************************************************
-
-                            Online C Compiler.
-                Code, Compile, Run and Debug C program online.
-Write your code in this editor and press "Run" button to compile and execute it.
-
-*******************************************************************************/
+//
+// Created by raulf on 07/07/2026.
+//
 
 #include <stdio.h>
 
 int main()
 {
 
-    char movieTypeC = 'A';
-    char movieType[99] = "";
-    char ticketTypeC = 'P';
-    char ticketType[99] = "";
+    //Set of variables are declared to store info representative of movie/ticket type and price.
+    char movieTypeChar;
+    char ticketTypeChar;
     float ticketPrice = 00.00;
+    //variables for movie and ticket type are made to store string values, for printing purposes.
+    char movieType[99] = "";
+    char ticketType[99] = "";
 
+
+    printf("Please detail now what type of movie you'd like to input:\n\nUse A for Action movie.\nUse C for Comedy movie.\nUse H for Horror movie.\n\n");
+    scanf(" %c", &movieTypeChar);
     
-        switch(movieTypeC) {
-            
-            case 'A':
+    
+    //Switch statements contemplate the different possibilities in each field, and enables printing depending on input.
+    switch(movieTypeChar) {
+
+        case 'A':
             ticketPrice = 10.00;
-            for (int i = 0; i < 1; i++){
-            movieType == "Action";    
-            }
+            sprintf(movieType, "Action");
             break;
-            
-            case 'C':
-            ticketPrice = 08.00;
-            for (int i = 0; i < 1; i++){
-            movieType == "Comedy";    
-            }
-            break;
-            
-            case 'H':
-            ticketPrice = 09.00;
-            for (int i = 0; i < 1; i++){
-            movieType == "Horror";    
-            }
-            break;
-            
-        }
-    
-        
-            switch(ticketTypeC){
-            
-            case 'S':
-                ticketPrice+0;
-                for (int i = 0; i < 1; i++){
-                ticketType == "Standard seat";    
-                }
-                break;
-            case 'P':
-                ticketPrice = (ticketPrice + 05.00);
-                for (int i = 0; i < 1; i++){
-                ticketType == "Premium seat";    
-                }
-                break;
-            
-        } 
-    
 
-            printf("Movie type is: %s.\nTicket type is: %s.\n", movieType, ticketType);
-            printf("\nTicket price therefore is: %2f.\n", ticketPrice);
+        case 'C':
+            ticketPrice = 08.00;
+            sprintf(movieType, "Comedy");
+            break;
+
+        case 'H':
+            ticketPrice = 09.00;
+            sprintf(movieType, "Horror");
+            break;
+
+    }
+
+    printf("Please detail now what type of seat you'd like to input:\n\nUse S for standard seat.\nUse P for Premium seat.\n\n");
+    scanf(" %c", &ticketTypeChar);
+
+
+
+    switch(ticketTypeChar){
+
+        case 'S':
+            ticketPrice+0;
+            sprintf(ticketType, "Standard seat");
+            break;
+        case 'P':
+            ticketPrice = (ticketPrice + 05.00);
+            sprintf(ticketType, "Premium seat");
+            break;
+    }
+
+    int ticketAmount;
+    printf("Please detail how many %s %s tickets you would like to input:\n\n", movieType, ticketType);
+    scanf(" %d", &ticketAmount);
+    float priceSum = (ticketPrice * ticketAmount);
+
+
+    if (ticketAmount < 1){
+        printf("Invalid movie type selected.\n\n");
+        return 0;
+    }
+
+    //Printing is actioned, feeding values from the switch statements above.
+    printf("\n-------------------Sum up-------------------\n");
+    printf("Movie type is: %s.\nTicket type is: %s.\n", movieType, ticketType);
+    printf("Ticket price per ticket is: %2f.\nTickets: %d.\n Total cost: %2f.\n\n ", ticketPrice, ticketAmount, priceSum);
 
 
     return 0;
-    
+
 }
