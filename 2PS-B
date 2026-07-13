@@ -2,6 +2,17 @@
 // Created by raulf on 13/07/2026.
 //
 
+
+
+
+//* FIX DISCOUNT, FINAL PRINT LAYOUT, SNACK COMBO CALCULATION FORMAT *//
+//* Functional, unspecialised *//
+
+
+
+
+
+
 #include <stdio.h>
 
 int main()
