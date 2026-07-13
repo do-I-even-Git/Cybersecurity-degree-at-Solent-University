@@ -1,1 +1,136 @@
+//
+// Created by raulf on 13/07/2026.
+//
 
+#include <stdio.h>
+
+int main()
+{
+
+    //Set of variables are declared to store info representative of movie/ticket type and price.
+    char movieTypeChar;
+    char ticketTypeChar;
+    float ticketPrice = 00.00;
+    //variables for movie and ticket type are made to store string values, for printing purposes.
+    char movieType[99] = "";
+    char ticketType[99] = "";
+
+        //Intake type of movie.
+        printf("Please detail now what type of movie you'd like to input:\n\nUse A for Action movie.\nUse C for Comedy movie.\nUse H for Horror movie.\n\n");
+        scanf(" %c", &movieTypeChar);
+        
+    
+            //Switch statements contemplate the different possibilities in each field, and enables printing depending on input.
+            switch(movieTypeChar) {
+        
+                case 'A':
+                    ticketPrice = 10.00;
+                    sprintf(movieType, "Action");
+                    break;
+                case 'a':
+                    ticketPrice = 10.00;
+                    sprintf(movieType, "Action");
+                    break;
+        
+                case 'C':
+                    ticketPrice = 08.00;
+                    sprintf(movieType, "Comedy");
+                    break;
+                case 'c':
+                    ticketPrice = 08.00;
+                    sprintf(movieType, "Comedy");
+                    break;
+                    
+                case 'H':
+                    ticketPrice = 09.00;
+                    sprintf(movieType, "Horror");
+                    break;
+                case 'h':
+                    ticketPrice = 09.00;
+                    sprintf(movieType, "Horror");
+                    break;
+            }
+
+
+
+        //Intake type of seat.
+        printf("Please detail now what type of seat you'd like to input:\n\nUse S for standard seat.\nUse P for Premium seat.\n\n");
+        scanf(" %c", &ticketTypeChar);
+
+            //Same switch logic, applied to seat type.
+            switch(ticketTypeChar){
+        
+                case 'S':
+                    ticketPrice+0;
+                    sprintf(ticketType, "Standard seat");
+                    break;
+               case 's':
+                    ticketPrice+0;
+                    sprintf(ticketType, "Standard seat");
+                    break;
+                case 'P':
+                    ticketPrice = (ticketPrice + 05.00);
+                    sprintf(ticketType, "Premium seat");
+                    break;
+                 case 'p':
+                    ticketPrice = (ticketPrice + 05.00);
+                    sprintf(ticketType, "Premium seat");
+                    break;
+             
+           
+            }
+
+
+        //Intake count of tickets.
+        int ticketAmount;
+        printf("Please detail how many %s %s tickets you would like to input:\n\n", movieType, ticketType);
+        scanf(" %d", &ticketAmount);
+    
+    //Declaration of discount, snack conditioner, snack price, and ticket price sum.
+    float priceSum = (ticketPrice * ticketAmount);
+    float discount = (priceSum / 10);
+    char snack;
+    float snackPrice = 5.50;
+    
+
+           //Checking for negative values.
+            if (ticketAmount < 1){
+                printf("Invalid movie type selected.\n\n");
+                return 0;
+            }
+
+
+        //Intake for snack conditional.
+        printf("Would you like to include a Snack combo for each ticket? £5.50 per ticket.\nY / N\n\n");
+        scanf(" %c", &snack);
+        
+            //if statement polarises results depending on snack variable.
+            if(snack == 'Y' || snack == 'y'){
+                
+                //The final cost variable is updated to include the snack cost.
+                priceSum = ((ticketPrice + snackPrice) * ticketAmount);
+            
+                    //Printing is actioned factoring in the snack variable and it's price sister variable, feeding values from the switch and if statements above.
+                    printf("\n-------------------Sum up-------------------\n");
+                    printf("Movie type is: %s.\nTicket type is: %s.\n", movieType, ticketType);
+                    printf("Ticket price per ticket is: %2f.\nTickets: %d.\n Combo Snack for £5.50 a ticket: YES. \n Total cost: %d * (%2f + %2f)  = %2f.\n\n ", ticketPrice, ticketAmount, ticketAmount, ticketPrice, snackPrice, priceSum);
+
+                
+            } else if (snack == 'N' || snack == 'n'){
+                
+                        
+                    //Printing is actioned, feeding values from the switch and if statements above.
+                    printf("\n-------------------Sum up-------------------\n");
+                    printf("Movie type is: %s.\nTicket type is: %s.\n", movieType, ticketType);
+                    printf("Ticket price per ticket is: %2f.\nTickets: %d.\n Combo Snack for £5.50 a ticket: NO. \n Total cost: %d * %2f = %2f.\n\n ", ticketPrice, ticketAmount, ticketAmount, ticketPrice, priceSum);
+    
+                    }
+   
+   
+   
+   
+
+
+    return 0;
+
+}
