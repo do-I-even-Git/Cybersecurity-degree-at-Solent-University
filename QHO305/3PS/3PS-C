@@ -1,0 +1,84 @@
+//
+// Created by raulf on 15/07/2026.
+//
+#include <stdio.h>
+
+int main() {
+
+    int steps;
+    int j;
+    int i = 2;
+    char answer;
+    float km;
+    float calories;
+    int stepsTotale;
+    float kmTotale;
+    float caloriesTotale;
+
+
+    while (i != 0){
+
+        printf("Would you like to record a new day's step count? :)\nY / N\n");
+        scanf(" %c", &answer);
+        steps = 0;
+        switch (answer) {
+            case 'Y':
+                i++;
+                printf("--------------You answered YES--------------\n");
+                printf("Please now input step count below.\n\n");
+                scanf(" %d", &steps);
+
+                km = (steps / 1250.00);
+                calories = ((steps * 40.00) / 1000.00);
+
+                printf("Steps: %d.\nKm equivalence: %.2f Km.\nCalories burned: %.2f calories.\n", steps, km, calories);
+                printf("--------------         --------------\n");
+            break;
+
+            case 'y':
+                i++;
+                printf("--------------You answered YES--------------\nX");
+                printf("Please now input step count below.\n\n");
+                scanf(" %d", &steps);
+
+                km = (steps / 1250.00);
+                calories = ((steps * 40.00) / 1000.00);
+
+                printf("Steps: %d.\nKm equivalence: %.2f Km.\nCalories burned: %.2f calories.\n", steps, km, calories);
+                printf("--------------         --------------\n");
+            break;
+
+            case 'N':
+                i--;
+                printf("--------------You answered NO--------------\n ");
+                printf("");
+                printf("Have a steppy day! :)\n              - Goodbye. -\n");
+            break;
+
+            case 'n':
+                i--;
+                printf("--------------You answered NO--------------\n");
+
+            break;
+
+            default:
+                i++;
+                printf("--------------INVALID INPUT--------------\n");
+                printf("Please retry with either Y for YES, or N for NO.\n    Thank you for your patience.");
+            break;
+        }
+
+        stepsTotale += steps;
+
+    i--;
+
+    }
+
+    kmTotale = (stepsTotale / 1250);
+    caloriesTotale = ((stepsTotale * 40) / 1000.0);
+    printf("%d total steps.\n%.2f total Kms walked.\n%.2f total calories burned.\n", stepsTotale, kmTotale, caloriesTotale);
+    printf("    -- Have a steppy day! :)\n              - Goodbye. -");
+
+return 0;
+}
+
