@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+int main(void) {
+
+    //We declare a variable inventory for storing our values.
+    int steps;
+
+
+        printf("Please input step count now.\n\n");
+        scanf("%d", &steps);
+
+    float km = (steps / 1250);
+    float calories = ((steps*40) / 1000);
+
+            printf("Steps: %d.\nKm equivalence: %2fKm.\nCalories burned: %2f.\n\n", steps, km, calories);
+
+
+
+
+
+
+
+
+
+
+
+
+return 0;
+}
+
