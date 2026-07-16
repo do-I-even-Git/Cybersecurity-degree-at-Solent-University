@@ -1,0 +1,172 @@
+//
+// Created by raulf on 15/07/2026.
+//
+#include <stdio.h>
+
+int main() {
+
+    float steps;
+    float stepsTotale;
+    float km;
+    float kmTotale;
+    float calories;
+    float caloriesTotale;
+    float walkingMinutes;
+    float minutesTotale;
+    int dayCount = 0;
+    int stepCount = 0;
+    int kmCount = 0;
+    int walkminCount = 0;
+    char answer = 'Y';
+    int numberInput;
+    char menuAnswer;
+
+    printf("Ready to input a new day's data?\nY / N\n");
+    scanf("%c", &answer);
+
+    do{
+
+
+
+        steps = 0;
+        switch (answer) {
+            case 'Y':
+                dayCount++;
+                printf("What would you like to input today? :)\n1 -> Steps.\n2 -> Kms.\n3 -> Walking minutes.\n");
+                scanf("%d", &numberInput);
+                switch (numberInput) {
+                    case 1:
+                        stepCount++;
+                        printf("--------------You chose STEPS--------------\n");
+                        printf("Please now input step count below.\n\n");
+                        scanf("%f", &steps);
+
+                        km = (steps / 1250.00);
+                        calories = ((steps * 40.00) / 1000.00);
+
+                        printf("Steps: %.2F.\nKm equivalence: %.2f Km.\nCalories burned: %.2f calories.\n", steps, km, calories);
+                        printf("--------------         --------------\n");
+                    break;
+
+                    case 2:
+                        kmCount++;
+                        printf("--------------You chose KMS--------------\n");
+                        printf("Please now input km count below.\n\n");
+                        scanf("%f", &steps);
+
+                        steps = (steps * 1250);
+                        km = (steps / 1250.00);
+                        calories = ((steps * 40.00) / 1000.00);
+
+                        printf("Steps: %.2F.\nKm equivalence: %.2f Km.\nCalories burned: %.2f calories.\n", steps, km, calories);
+                        printf("--------------         --------------\n");
+                    break;
+
+                    case 3:
+                        walkminCount++;
+                        printf("--------------You chose WALKING MINUTES--------------\n");
+                        printf("Please now input walking minute count below.\n\n");
+                        scanf("%f", &steps);
+
+                        steps = (steps * 100);
+                        km = (steps / 1250.00);
+                        calories = ((steps * 40.00) / 1000.00);
+
+                        printf("Steps: %.2F.\nKm equivalence: %.2f Km.\nCalories burned: %.2f calories.\n", steps, km, calories);
+                        printf("--------------         --------------\n");
+                    break;
+
+                    default:
+                        printf("--------------INVALID CHOICE--------------\nPlease choose a number from the offered options.");
+                    break;
+
+                }
+            break;
+            case 'y':
+                dayCount++;
+                printf("What would you like to input today? :)\n1 -> Steps.\n2 -> Kms.\n3 -> Walking minutes.\n");
+                scanf("%d", &numberInput);
+                switch (numberInput) {
+                    case 1:
+                        stepCount++;
+                        printf("--------------You chose STEPS--------------\n");
+                        printf("Please now input step count below.\n\n");
+                        scanf("%f", &steps);
+
+                        km = (steps / 1250.00);
+                        calories = ((steps * 40.00) / 1000.00);
+                        walkingMinutes = (steps / 100);
+
+                        printf("Steps: %.2F.\nKm equivalence: %.2f Km.\nCalories burned: %.2f calories.\n", steps, km, calories);
+                        printf("--------------         --------------\n");
+                    break;
+
+                    case 2:
+                        kmCount++;
+                        printf("--------------You chose KMS--------------\n");
+                        printf("Please now input km count below.\n\n");
+                        scanf("%f", &steps);
+
+                        steps = (steps * 1250);
+                        km = (steps / 1250.00);
+                        calories = ((steps * 40.00) / 1000.00);
+                        walkingMinutes = (steps / 100);
+
+                        printf("Steps: %.2F.\nKm equivalence: %.2f Km.\nCalories burned: %.2f calories.\n", steps, km, calories);
+                        printf("--------------         --------------\n");
+                    break;
+
+                    case 3:
+                        walkminCount++;
+                        printf("--------------You chose WALKING MINUTES--------------\n");
+                        printf("Please now input walking minute count below.\n\n");
+                        scanf("%f", &steps);
+
+                        steps = (steps * 100);
+                        km = (steps / 1250.00);
+                        calories = ((steps * 40.00) / 1000.00);
+
+                        printf("Steps: %.2F.\nKm equivalence: %.2f Km.\nCalories burned: %.2f calories.\n", steps, km, calories);
+                        printf("--------------         --------------\n");
+                    break;
+
+                    default:
+                        printf("--------------INVALID CHOICE--------------\nPlease choose a number from the above menu.");
+                    break;
+
+                }
+            break;
+
+            case 'N':
+                printf("--------------You answered NO--------------\n ");
+                printf("");
+                printf("Have a steppy day! :)\n              - Goodbye. -\n");
+            break;
+
+            case 'n':
+                printf("--------------You answered NO--------------\n");
+            break;
+
+            default:
+                printf("--------------INVALID INPUT--------------\n");
+                printf("Please retry with either Y for YES, or N for NO.\n    Thank you for your patience.");
+            break;
+        }
+
+        stepsTotale += steps;
+
+    printf("Wish to come back to main menu?\nY / N\n");
+        scanf(" %c", &menuAnswer);
+    }
+    while (menuAnswer == 'Y' || menuAnswer == 'y');
+
+
+    kmTotale = (stepsTotale / 1250);
+    caloriesTotale = ((stepsTotale * 40) / 1000.0);
+    printf("%d days recorded. Here's a sum up:\n", dayCount);
+    printf("%d Steps entries. | %d Kms entries. | %d walking minutes entries.\n", stepCount, kmCount, walkminCount);
+    printf("%.2F total steps.\n%.2f total Kms walked.\n%.2f total calories burned.\n", stepsTotale, kmTotale, caloriesTotale);
+    printf("    -- Have a steppy day! :)\n              - Goodbye. -");
+
+return 0;
+}
