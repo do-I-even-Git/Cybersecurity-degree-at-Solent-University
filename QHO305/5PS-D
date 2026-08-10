@@ -2,20 +2,51 @@
 
 int main() {
 
-int daysNumber = 0;
-int daysArray[daysNumber];
+int daysCount;
 
 do{
     printf("How many days would you like to input today? :)\n");
-scanf(" %d", &daysNumber);
-if (daysNumber > 30 || daysNumber < 1)
+scanf(" %d", &daysCount);
+if (daysCount > 30 || daysCount < 1)
 {
     printf("-----------ERROR-----------\nDay count needs to be an integer value between 1 and 30.\n Please try again.\n\n\n");
 } else{
-printf("We have %d days here.", daysNumber);}
+printf("We have %d days here.", daysCount);
+    }
     
 }
-while (daysNumber > 30 || daysNumber < 1);
+while (daysCount > 30 || daysCount < 1);
+
+float daysArray[daysCount];
+float newValue;
+
+for (int j=0; j < daysCount; j++){
+     newValue = 0;
+        printf("\nInput day temperature now.\n");
+            scanf(" %f", &newValue);
+    daysArray[j] = newValue;
+}
+for (int i=0; i < sizeof(daysArray); i++){
+    printf("\n%d.%f\n", i, daysArray[i]);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
