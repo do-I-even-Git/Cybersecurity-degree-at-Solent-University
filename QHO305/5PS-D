@@ -1,34 +1,67 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
 #include <stdio.h>
 
 int main() {
 
+//Variable is established for user to input amount of days value
+
 int daysCount;
 
+//A "do while" loop.
+
 do{
+
+//User input is requested and value is allocated to empty variable
+
     printf("How many days would you like to input today? :)\n");
-scanf(" %d", &daysCount);
+scanf("%d", &daysCount);
+
+//An if loop is used to check that the input value is valid,
+//if not, an error message is deployed,
+//if it is, the registered value is made known to the user.
+
 if (daysCount > 30 || daysCount < 1)
 {
     printf("-----------ERROR-----------\nDay count needs to be an integer value between 1 and 30.\n Please try again.\n\n\n");
 } else{
-printf("We have %d days here.", daysCount);
-    }
+printf("We have registered an input of %d days.", daysCount);
+    };
+    
+//If the input is not within parameter, the do while loop resets the code,
+//so the user can input a new value
     
 }
 while (daysCount > 30 || daysCount < 1);
 
+//New empty variables are declared to store the input of each day temperature,
+//and store all of them in an array.
+
 float daysArray[daysCount];
 float newValue;
 
+//A for loop is utilized to obtain and allocate each day's value input.
+
 for (int j=0; j < daysCount; j++){
      newValue = 0;
-        printf("\nInput day temperature now.\n");
+        printf("\nInput day %d temperature now.\n", j+1);
             scanf(" %f", &newValue);
-    daysArray[j] = newValue;
+                daysArray[j] = newValue;
 }
-for (int i=0; i < sizeof(daysArray); i++){
-    printf("\n%d.%f\n", i, daysArray[i]);
+
+//Another for loop is used for printing each value within the loop,
+//numerized and in orderly manner.
+
+for (int i=0; i < daysCount; i++){
+    printf("\n %d. %F \n", i+1, daysArray[i]);
 }
+
 
 
 
