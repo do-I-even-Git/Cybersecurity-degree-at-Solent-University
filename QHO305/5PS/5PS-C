@@ -116,7 +116,9 @@ switch(userChoice){
     break;
     default:
     
-        printf("\n\n-----------ERROR-----------\nPlease pick an option from above, use number 1 or 2.\n Please try again.\n\n");
+        printf("\n\n-----------ERROR-----------\nPlease pick an option from above, use number 1 or 2.\n Please try again.\n\n");        printf("\n\n-----------ERROR-----------\nPlease pick from displayed options. Use numbers allocated to options.\n");
+        printf("Please try again.\n\n");
+
         
     break;
 }
