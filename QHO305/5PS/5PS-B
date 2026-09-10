@@ -1,0 +1,247 @@
+#include <stdio.h>
+
+int main() {
+
+//Variable is established for user to input amount of days value
+
+int daysCount;
+
+//A "do while" loop.
+
+int userChoice;
+do{
+
+//User input is requested and value is allocated to empty variable
+
+    printf("How many days would you like to input today? :)\n");
+scanf("%d", &daysCount);
+
+//An if loop is used to check that the input value is valid.
+
+if (daysCount > 30 || daysCount < 1)
+{
+    //if found not valid, an error message is displayed.
+    printf("-----------ERROR-----------\nDay count needs to be an integer value between 1 and 30.\n Please try again.\n\n\n");
+
+} else{
+    //if it is, the registered value is made known to the user.
+    printf("We have registered an input of %d days.\n", daysCount);
+    };
+    
+//If the input is not within parameter, the do while loop resets the code,
+//so the user can input a new value
+    
+}
+while (daysCount > 30 || daysCount < 1);
+
+//New empty variables are declared to store the input of each day temperature,
+//and store all of them in an array.
+
+float daysArray[50];
+float newValue;
+float sum = 0;
+float lowest;
+float highest;
+
+
+//A for loop is utilized to obtain and allocate each day's value input.
+
+for (int j=0; j < daysCount; j++){
+     newValue = 0;
+        printf("\nInput day %d temperature in °C now.\n", j+1);
+            scanf(" %f", &newValue);
+                daysArray[j] = newValue;
+                    sum += newValue;
+
+
+    if (j == 0) {
+        lowest = daysArray[0];
+        highest = daysArray[0];
+    }  else {
+            if (newValue < lowest) {
+                lowest = newValue;
+            }
+            if (newValue > highest) {
+                highest = newValue;
+            }
+        }
+
+    if (j == 50) {
+        printf("This is the last value you can input in this session.");
+    }
+                    
+}
+
+//A message is printed giving the user an option menu, depending on numerical input.
+
+do{
+printf("\n What would you like to do now?\n");
+printf("\n1. Display all temperature readings.");
+printf("\n2. Calculate average temperature.");
+printf("\n3. Find and display the highest and lowest temperature.");
+printf("\n4. Set a temperature threshold and check entries over and below.");
+printf("\n5. Calculate average for each week.");
+printf("\n7. Exit the program");
+printf("\n\n Please pick an option by inputting it's assigned number.\n");
+
+//Empty variable is declared to store user choice of above options.
+
+scanf("%d", &userChoice);
+
+//A switch statement directs the flow of code depending on input:
+//Input of 1 prints all registered temperatures.
+//Input of 2 calculates and prints an average of all temperatures.
+
+switch(userChoice){
+    case 1:
+    //Another for loop is used for printing each value within the loop,
+    //numerized and in orderly manner.
+
+        for (int i=0; i < daysCount; i++){
+            printf("\n %d. %.2f°C \n", i+1, daysArray[i]);
+}
+    break;
+    case 2:
+    
+        float average = sum / daysCount;
+            printf("\n The total average temperature is: %.2f°C.\n", average);
+    
+    break;
+    case 3:
+    
+            printf("\n The lowest temperature recorded is %.2f", lowest);
+            printf("\n The highest temperature recorded is %.2f", highest);
+
+    break;
+    case 4:
+
+        float thresholdMarker;
+        int belowTemp = 0;
+        int aboveTemp = 0;
+
+        printf("Please input your temperature threshold now. Use 00.00 format, and °C temperatures.\n");
+        scanf(" %f", &thresholdMarker);
+        for (int i = 0; i < daysCount; i++) {
+            if (daysArray[i] < thresholdMarker) {
+                belowTemp++;
+            } if (daysArray[i] > thresholdMarker) {
+                aboveTemp++;
+            }
+        }
+
+        printf("\nYour temperature threshold is %.2f°C.\n Of %d input temperatures:\n ", thresholdMarker, daysCount);
+        printf("\n%d are above the threshold. \n%d are below the threshold.", aboveTemp, belowTemp);
+
+    break;
+    case 5:
+
+        float week1 = 0;
+        float week2 = 0;
+        float week3 = 0;
+        float week4 = 0;
+        float week5 = 0;
+        float week6 = 0;
+        float week7 = 0;
+        float week8 = 0;
+
+        int dividend1 = 0;
+        int dividend2 = 0;
+        int dividend3 = 0;
+        int dividend4 = 0;
+        int dividend5 = 0;
+        int dividend6 = 0;
+        int dividend7 = 0;
+        int dividend8 = 0;
+            int counter[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+
+
+        for (int f=0; f < daysCount; f++) {
+            if (f+1 >= 0 && f+1 <= 7) {
+                week1 += daysArray[f];
+                dividend1++;
+                counter[0] = 1;
+            }
+            if (f+1 > 7 && f+1 <= 14) {
+                week2 += daysArray[f];
+                dividend2++;
+                counter[1] = 1;
+            }
+            if (f+1 > 14 && f+1 <= 21) {
+                week3 += daysArray[f];
+                dividend3++;
+                counter[2] = 1;
+            }
+            if (f+1 > 21 && f+1 <= 28) {
+                week4 += daysArray[f];
+                dividend4++;
+                counter[3] = 1;
+            }
+            if (f+1 > 28 && f+1 <= 35) {
+                week5 += daysArray[f];
+                dividend5++;
+                counter[4] = 1;
+            }
+            if (f+1 > 35 && f+1 <= 42) {
+                week6 += daysArray[f];
+                dividend6++;
+                counter[5] = 1;
+            }
+            if (f+1 > 42 && f+1 <= 49) {
+                week7 += daysArray[f];
+                dividend7++;
+                counter[6] = 1;
+            }
+            if (f+1 == 50) {
+                week8 += daysArray[f];
+                dividend8++;
+                counter[7] = 1;
+            }
+        }
+
+        if (counter[0] == 1) {
+            printf("\nThe average for week 1 is: %.2f", week1/dividend1);
+        }
+        if (counter[1] == 1) {
+            printf("\nThe average for week 2 is: %.2f", week2/dividend2);
+        }
+        if (counter[2] == 1) {
+            printf("\nThe average for week 3 is: %.2f", week3/dividend3);
+        }
+        if (counter[3] == 1) {
+            printf("\nThe average for week 4 is: %.2f", week4/dividend4);
+        }
+        if (counter[4] == 1) {
+            printf("\nThe average for week 5 is: %.2f", week5/dividend5);
+        }
+        if (counter[5] == 1) {
+            printf("\nThe average for week 6 is: %.2f", week6/dividend6);
+        }
+        if (counter[6] == 1) {
+            printf("\nThe average for week 7 is: %.2f", week7/dividend7);
+        }
+
+    break;
+    case 7:
+    
+        printf("\n\n\nExiting now...\n\n");
+        printf("Thanks for coming today. Buh bye :)");
+        
+    break;
+    default:
+    
+        printf("\n\n-----------ERROR-----------\nPlease pick from displayed options. Use numbers allocated to options.\n");
+        printf("Please try again.\n\n");
+        
+    break;
+}
+    
+    
+    
+
+} while (userChoice != 7);
+
+
+
+
+    return 0;
+}
