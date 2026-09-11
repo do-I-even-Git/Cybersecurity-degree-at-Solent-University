@@ -1,14 +1,20 @@
+#include <stdio.h>
 
+int main(void) {
+
+//Declaration of string array holding book names.
+    char bookArray[][99] = {"North Passage", "Echoes of the Atrium", "Archive Key", "The Prisoner of the skies", "Graveyard of forgotten books", "Shadow of Wind", "Caribes of the Pirattean", "Hollowy Sleep"};
+
+//Integer variable declared to store the length of bookArray.
+    int arraySize = sizeof(bookArray) / sizeof(bookArray[0]);
+
+//For loop declared utilizing arraySize as limiter to print book names as requested at Level D.
+    for (int i = 0; i < arraySize; i++) {
+            printf("%s\n", bookArray[i]);
+            printf("%s \n", bookArray[0]);
+        }
 
 
 
     return 0;
 }
-#include <stdio.h>
-
-int main(void) {
-
-    int arraySize = 8;
-
-    char bookArray[][99] = {"North Passage", "Echoes of the Atrium", "Archive K>
-   
