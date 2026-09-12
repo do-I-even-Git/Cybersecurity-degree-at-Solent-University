@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <string.h>
+
+int main(void) {
+
+//Declaration of string array holding book names.
+    char bookArray[][99] = {"North Passage", "Echoes of the Atrium", "Archive Key", "The Prisoner of the skies", "Graveyard of forgotten books", "Shadow of Wind", "Caribes of the Pirattean", "Hollowy Sleep"};
+
+//Integer variable declared to store the length of bookArray.
+    int arraySize = sizeof(bookArray) / sizeof(bookArray[0]);
+
+
+
+
+//String line is printed to indicate BEFORE in the before/after requirement at Level C. A space is added to each title
+    printf("\n\nList before alphabetical formatting: ");
+
+//For loop declared utilizing arraySize as limiter to print book names as requested at Level D.
+    for (int i = 0; i < arraySize; i++) {
+
+//to aid readability amongst bookArray[0] repetition.
+            printf("\n %s", bookArray[i]);
+            printf("\n%s", bookArray[0]);
+
+    }
+//A temporary placeholder variable is declared, to be used as a 3rd position during strcpy sorting.
+    char bookSwap[99];
+
+//A new for loop iterates through the array, using strcasecmp to compare position between iterated position in the array
+//and the first position in the array, for Grade C.
+    for (int i = 1; i < arraySize; i++) {
+//Strcpy is actioned if the iterated title is alphabetically "smaller" than the first title in the list.
+            if (strcasecmp(bookArray[i], bookArray[0]) < 0) {
+                strcpy(bookSwap, bookArray[0]); //1st title is taken off 1st position and stored on the temporary var,
+                strcpy(bookArray[0], bookArray[i]); //1st position is filled by iterated title,
+                strcpy(bookArray[i], bookSwap); //1st title is sent from temporary var to iterated position.
+            }
+    }
+
+    //String line is printed to indicate AFTER in the before/after requirement at Level C.
+    printf("\nList after positioning 1st alphabetical title into 1st array position.: ");
+
+    //After transforming the order of bookArray, we implement the same logic to print the list again.
+    for (int i = 0; i < arraySize; i++) {
+        //to aid readability amongst bookArray[0] repetition.
+        printf("\n %s", bookArray[i]);
+    }
+
+
+    return 0;
+
+}
