@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <string.h>
+
+int main(void) {
+
+//Declaration of string array holding book names.
+    char bookArray[][99] = {"North Passage", "Echoes of the Atrium", "Archive Key", "The Prisoner of the skies", "Graveyard of forgotten books", "Shadow of Wind", "Caribes of the Pirattean", "Hollowy Sleep"};
+
+//Integer variable declared to store the length of bookArray.
+    int arraySize = sizeof(bookArray) / sizeof(bookArray[0]);
+
+
+
+
+//A string line indicates this is the original list, BEFORE any formating. Text is indented for readibility.
+    printf("\n\n--   This is the list before alphabetical formatting: --");
+
+//For loop is used to iterate through the array printing each element. Limited to arraySize's length.
+    for (int i = 0; i < arraySize; i++) {
+            printf("\n %s", bookArray[i]); //Iterated titles are slightly indented for readability
+            printf("\n%s", bookArray[0]);
+
+    }
+//A temporary placeholder variable is declared, to be used as a 3rd position during strcpy sorting.
+    char bookSwap[99];
+
+//A new for loop iterates through the array, using strcasecmp to compare position between iterated position in the array
+//and the first position in the array, for Grade C.
+    for (int i = 1; i < arraySize; i++) {
+//Strcpy is actioned if the iterated title is alphabetically "smaller" than the first title in the list.
+            if (strcasecmp(bookArray[i], bookArray[0]) < 0) {
+                strcpy(bookSwap, bookArray[0]); //1st title is taken off 1st position and stored on the temporary var,
+                strcpy(bookArray[0], bookArray[i]); //1st position is filled by iterated title,
+                strcpy(bookArray[i], bookSwap); //1st title is sent from temporary var to iterated position.
+            }
+    }
+
+//A printed string indicates that this list has the 1st position alphabetically ordered. Text is indented for readibility.
+    printf("\n\n--   This is the list after positioning 1st alphabetical title into 1st array position.: --");
+
+    //After transforming the order of bookArray, we implement the same logic to print the list again.
+    for (int i = 0; i < arraySize; i++) {
+        //to aid readability amongst bookArray[0] repetition.
+        printf("\n %s", bookArray[i]);
+    }
+
+    for (int i = 0; i < arraySize - 1; i++) {
+//A new iterator is added, j, which occupies the position after i, enabling continuous comparison of adjacent values.
+        for (int j = i + 1; j < arraySize; j++) {
+            //Strcpy is actioned if the title in position [j] is alphabetically "smaller" than the title in position [i].
+            if (strcasecmp(bookArray[j], bookArray[i]) < 0) {
+                strcpy(bookSwap, bookArray[i]); //The title in position [i] is sent to the temporary variable.
+                strcpy(bookArray[i], bookArray[j]); //Title in position [j] takes up position [i]: one before.
+                strcpy(bookArray[j], bookSwap); //Title previously in position [i] is returned in position [j]: one later.
+            }
+        }
+    }
+
+//A printed string indicates that the following list is fully formated alphabetically. Text is indented for readibility.
+    printf("\n\n--   This is the list after being fully alphabetically sorted: --");
+
+//The same for loop employed previously for iterating the print is used again.
+    for (int i = 0; i < arraySize; i++) {
+        printf("\n %s", bookArray[i]);
+    }
+
+
+return 0;
+
+}
