@@ -9,7 +9,7 @@ struct Item {
 };
 
 //Declaring blank functions for user appending and reading.
-void appendItem(void);
+void addItem(void);
 void displayItems(void);
 
 //Declaring an int main function without parameter to contain option menu logic.
@@ -34,7 +34,7 @@ int main(void) {
         switch (choice) {
             case 1:
 
-                appendItem(); //Appending function is actioned.
+                addItem(); //Appending function is actioned.
 
                 break;
             case 2:
@@ -61,7 +61,7 @@ int main(void) {
 
 
 //APPEND FUNCTION
-void appendItem(void) {
+void addItem(void) {
 //Declaring of newItem struct variable within Item, for temporarily storing user input before appending it to Item.
     struct Item newItem;
 //Opening Item file for user appending.
