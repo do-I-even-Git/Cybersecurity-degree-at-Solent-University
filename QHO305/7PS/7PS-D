@@ -1,0 +1,130 @@
+#include <stdio.h>
+#include <string.h>
+
+//Declaring struct Item.
+struct Item {
+    int id; //integer
+    char assetTag[99]; //string
+    char status[3]; //character
+};
+
+//Declaring blank functions for user appending and reading.
+void appendItem(void);
+void displayItems(void);
+
+//Declaring an int main function without parameter to contain option menu logic.
+int main(void) {
+//Declaring an integer empty variable that will store user's choice between appending/reading/exiting.
+    int choice;
+
+    do {
+//Print of Menu and options, indicating numeric code for user input.
+//User can use 1 to append to the file, 2 to read the full of it, or 3 to exit the session.
+        printf("\n  ===== Welcome to the Stock Manager =====  ");
+        printf("\n  - What would you like to do today? :) -");
+        printf("\nPlease use the indicated number for your chosen action.");
+        printf("\n1. Add new item.");
+        printf("\n2. Display all items.");
+        printf("\n3. Finish the session.\n");
+    //Obtaining choice from user input
+        scanf("%d", &choice);
+            getchar();//buffer cleaning
+
+//Declaring a switch statement to divert flow of code, depending of user choice.
+        switch (choice) {
+            case 1:
+
+                appendItem(); //Appending function is actioned.
+
+                break;
+            case 2:
+
+                displayItems(); //Reading function is actioned.
+
+                break;
+            case 3:
+
+                printf("\nFinishing your session now...");
+                printf("\n.\n..\n...Thanks come again! :)");
+                return 0; //Exiting session with farewell message.
+
+            break;
+            default:
+//Displaying error message and use instruction displayed before menu is reset by do-while.
+                printf("\n ===== ERROR ====== ERROR ====== \nPlease pick a number corresponding to an option above.");
+
+            break;
+        }
+    } while (choice != 3); //Do while will display the menu again unless user exits session, by inputting 3.
+
+} //End of main function.
+
+
+//APPEND FUNCTION
+void appendItem(void) {
+//Declaring of newItem struct variable within Item, for temporarily storing user input before appending it to Item.
+    struct Item newItem;
+//Opening Item file for user appending.
+    FILE *stckMngmnt = fopen("Item.txt", "a");
+//Checking with an if statement, if the file is not found, an error message is displayed and exit is executed.
+    if (stckMngmnt == NULL) {
+        printf("Error opening file!\n");
+        return;
+    }
+
+//Printing string indicating user to make an ID data input.
+    printf(" --- Enter id to assign on file: \nUse only integer values.\n");
+//Obtaining using input and assign it to an id field in newItem. Scanf must be used for this value is an integer.
+    scanf("%d", &newItem.id);
+        getchar(); //buffer cleaning
+
+//The same block is repeated but for an assetTag field in newItem, which is a string, necessitating fgets.
+    printf("\n --- Enter assetTag to assign on file: \nUse AAAAA-000 format.\n");
+    fgets(newItem.assetTag, sizeof(newItem.assetTag), stdin);
+//String length is allocated by scanning the input until reaching the auto line jump.
+    newItem.assetTag[strcspn(newItem.assetTag, "\n")] = 0;
+
+//The same string block is repeated but for a status field in newItem.
+    printf("\n --- Enter status to assign on file: \nUse A - Available // U - In use // L - Lost // R - Needing repair\n");
+    fgets(newItem.status, sizeof(newItem.status), stdin);
+    newItem.status[strcspn(newItem.status, "\n")] = 0;
+
+//Appending to the Item file, within stckMngmnt, the user's input, stored in newItem's fields.
+//The --- visual is implemented between inputs for readability.
+    fprintf(stckMngmnt, "%d --- %s --- %s\n", newItem.id, newItem.assetTag, newItem.status);
+
+//Safely closing the Item file by closing it's handler, stckMngmnt.
+    fclose(stckMngmnt);
+
+//Printing data appending confirmation message before menu resets with do-while.
+    printf("Input content appended to file successfully.\n");
+} // End of APPENDING FUNCTION.
+
+
+//DISPLAY FUNCTION
+void displayItems(void) {
+//Declaration of temporary variable to store all Item's readable text to display for user.
+    struct Item readItem;
+//Open Item file for user reading.
+    FILE *stckMngmnt = fopen("Item.txt", "r");
+
+//The same opening error check is implemented.
+    if (stckMngmnt == NULL) {
+        printf("Error opening file!\n");
+        return;
+    }
+
+//Printing a string to act as title before displaying Item's contents.
+    printf("=== STOCK MANAGEMENT RECORDS ===");
+
+//Utilising a while loop, set to work so long as it finds the 3 variables per line, within stckMngmnt, in the Item file.
+//Extracting the three variables, for the ID variable, & is added as it's primitive. Limitated by the auto line jump.
+    while (fscanf(stckMngmnt, "%d --- %98s --- %2s[^\n]", &readItem.id, readItem.assetTag, readItem.status) == 3) {
+//It then assigns each variable to a field inside the temporary readItem variable, which then facilitate for fprinting.
+        printf("\nID: %d --- Asset Tag: %s --- Status: %s\n", readItem.id, readItem.assetTag, readItem.status);
+    }
+
+//Safely closing the Item file by closing it's handler, stckMngmnt.
+    fclose(stckMngmnt);
+
+} // End of DISPLAY FUNCTION
