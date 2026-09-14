@@ -1,0 +1,269 @@
+#include <stdio.h>
+#include <string.h>
+///////cambio de nombre al Item.txt, a las sesiones de FILE *, quitado break de Case 3.
+//ALL GRADE C COMMENTARY IS DELETED FOR READABILITY AND TASK REPORT CLARITY PURPOSES.
+#define fullRecord 999 //Defining length for element that will limit full registry length during temporary reg copy.
+
+struct Item {
+    int id;
+    char assetTag[99];
+    char status[3];
+
+};
+
+int addItem(int id, char assetTag[], char status[]);
+void displayItems(void);
+int searchItemById(int id);
+int updateItem(int id, const char newAssetTag[], const char newStatus[]);
+
+// MENU BLOCK
+int main(void) {
+    int choice;
+
+    do {
+        printf("\n  ===== Welcome to the Stock Manager =====  ");
+        printf("\n  - What would you like to do today? :) -");
+        printf("\nPlease use the indicated number for your chosen action.");
+        printf("\n1. Add new item.");
+        printf("\n2. Display all items.");
+        printf("\n3. Search item using ID.");
+        printf("\n4. Search item by ID to update Asset Tag and Status.\n"); //Printing new UPDATE BLOCK menu option.
+        printf("\n5. Finish the session.\n");//Pushing exit option to remain last option of the menu.
+        scanf("%d", &choice);
+        getchar();
+
+        switch (choice) {
+            case 1: {
+                int id;
+                char assetTag[99];
+                char status[3];
+
+
+
+                printf("\n --- Enter id to assign on file: \nUse only integer values.\n");
+                scanf("%d", &id);
+                getchar();
+
+                printf("\n --- Enter assetTag to assign on file: \nUse AAAAA-000 format.\n");
+                fgets(assetTag, sizeof(assetTag), stdin);
+                assetTag[strcspn(assetTag, "\n")] = 0;
+
+                printf("\n --- Enter status to assign on file: ");
+                printf("\nUse A - Available / U - In use / L - Lost / R - Needing repair\n");
+                fgets(status, sizeof(status), stdin);
+                status[strcspn(status, "\n")] = 0;
+
+
+                addItem(id, assetTag, status);
+            }
+            break;
+            case 2:
+
+                displayItems();
+
+            break;
+            case 3: {
+
+
+                int searchId;
+                printf("\n You have chosen 3. Search item using ID.");
+                printf("\nEnter the ID you'd like to search now. ");
+                scanf("%d", &searchId);
+                getchar();
+
+                searchItemById(searchId);
+            }
+            break;
+            case 4: {//Declaring a new case to occupy update by ID duties.
+
+                int updateId; //Declaring variable to contain ID user input on target registry.
+                char newAssetTag[99]; //Declaring new Asset Tag variable to carry user input into updating registry.
+                char newStatus[3]; //Declaring new Status variable, ditto.
+
+                printf("\n You have chosen 4. Update item by ID."); //Printing choice confirmation
+                //Block containing input instruction, user input obtention and store into new variable, and confirmation.
+                printf("\n - Enter ID corresponding to the updating register now:\n");
+                scanf("%d", &updateId);
+                getchar(); //Buffer clean
+                printf("\nYou've input ID %d.", updateId);
+
+                //Same block adapted to Asset Tag value.
+                printf("\n - Input new Asset Tag now.\nUse AAAAA-000 format.\n"); //Printing Asset Tag instruction.
+                scanf("%s", newAssetTag); //Obtaining and storing Asset Tag.
+                getchar();
+                printf("\nThe new Asset Tag will be: %s", newAssetTag);
+
+                //Same block adapted to Status value.
+                printf("\n - Input new status now");
+                printf("\nUse A - Available / U - In use / L - Lost / R - Needing repair\n");; //Printing Status instruction.
+                scanf("%s", newStatus); //Obtaining and storing Status.
+                getchar();
+                printf("\nThe new Status will be: %s", newStatus);
+
+                //Once all values are gathered, the function can be called.
+                updateItem(updateId, newAssetTag, newStatus);
+            }
+            break;
+            case 5:
+
+                printf("\nFinishing your session now...");
+                printf("\n.\n..\n...Thank you, see you soon! :)");
+
+            return 0;
+            default:
+
+                printf("\n ===== ERROR ====== ERROR ====== \nPlease pick a number corresponding to an option above.");
+
+            break;
+        }
+    } while (choice != 5);
+}// END OF MENU BLOCK
+
+int addItem(int id, char assetTag[], char status[]) {
+    struct Item appendItem;
+    int isDuplicate = 0;
+
+// CHECK BLOCK
+    FILE *idCheck = fopen ("logReg.txt", "r");
+    if (idCheck == NULL) {
+        printf("Error opening file! Case: ID-CHECK SESSION\n");
+        printf("Be advised: ID check did not take place!!\n");
+        printf("Ignore if this is the first entry into empty registry.\n");
+    }
+    if (idCheck != NULL) {
+        while (fscanf(idCheck, "%d --- %98s --- %2s\n", &appendItem.id, appendItem.assetTag, appendItem.status) == 3) {
+            if (appendItem.id == id) {
+                isDuplicate = 1;
+            break;
+            }
+        }
+        fclose(idCheck);
+    }// END OF CHECK BLOCK
+
+
+    if (isDuplicate) {
+        printf(" === ERROR === \nItem with ID %d already exists in the register. \nEntry aborted.\n", id);
+    return 0;
+    }
+// APPEND BLOCK
+    FILE *appendReg = fopen("logReg.txt", "a");
+        if ( appendReg == NULL) {
+            printf("Error opening file! Case: APPENDING SESSION\n");
+            return 11; //Implementing coded return where allowed.
+        }
+        fprintf(appendReg, "%d --- %s --- %s\n", id, assetTag, status);
+    fclose(appendReg);
+    printf("Input content appended to file successfully.\n");
+    return 1;
+}// END OF APPEND BLOCK
+
+
+// DISPLAY BLOCK
+void displayItems(void) {
+    struct Item readItem;
+    FILE * readReg = fopen("logReg.txt", "r");
+
+    if ( readReg == NULL) {
+        printf("Error opening file! Case: READING SESSION\n");
+        return;
+    }
+
+    printf("=== STOCK MANAGEMENT RECORDS ===");
+
+    while (fscanf( readReg, "%d --- %98s --- %2s\n", &readItem.id, readItem.assetTag, readItem.status) == 3) {
+        printf("\nID: %d --- Asset Tag: %s --- Status: %s\n", readItem.id, readItem.assetTag, readItem.status);
+    }
+
+    fclose( readReg);
+}// END OF DISPLAY BLOCK
+
+// SEARCH BLOCK
+int searchItemById(int searchId) {
+    struct Item searchItem;
+    int isFound = 0;
+    int revCount = 0; //Declaring an int var that will store line position of found record.
+    FILE *searchReg = fopen("logReg.txt", "r");
+
+    if (searchReg == NULL) {
+        printf("Error opening file! Case: SEARCH SESSION");
+        return 33; //Implementing coded return where allowed.
+    }
+
+    while (fscanf(searchReg, "%d --- %98s --- %2s\n", &searchItem.id, searchItem.assetTag, searchItem.status) == 3){
+        revCount++; //By adding 1 per line read, we obtain a line count until the below if finds match and breaks while.
+        if (searchItem.id == searchId) {
+            isFound = 1;
+            break;
+        }
+    }
+    fclose(searchReg);
+
+    if (isFound) {
+        printf("\n=== RECORD FOUND ===");
+        printf("\nID: %d --- Asset Tag: %s --- Status: %s", searchItem.id, searchItem.assetTag, searchItem.status);
+        printf("\n=== Registry line: ");//Printing an indicator that the next number is the matching line position.
+        return revCount; //Returning coded to use the while iteration count when matching ID was found, reclecting position.
+    }
+    if (!isFound) {
+        printf("\n=== No records matches ID %d. ===", searchId);
+        return -1; //Returning with code specified as per Grade B.
+    }
+} // END OF SEARCH BLOCK
+
+// UPDATE BLOCK
+int updateItem(int id, const char newAssetTag[], const char newStatus[]){ //Declaring new function as per Grade B spec.
+    struct Item updateItem[fullRecord]; //Declaring temporary array to contain reg copy during operation.
+    int copyCount = 0; //Declaring variable to hold line count during copying.
+    int regNum = -1; //Declaring variable to hold ID match line number, preset to flag in case of operation failure.
+
+    FILE *copyReg = fopen ("logReg.txt", "r"); //Opening new session for reg copy purpose.
+//Checking for copy session opening failure with coded return.
+    if (copyReg == NULL) {
+        printf("Error opening file! Case: COPY SESSION\n");
+        return 44;
+    }
+//Declaring while to iterate record, conditioned to defined element length and fscanf copying into temporary variables)
+    while (copyCount < fullRecord && fscanf(copyReg, "%d --- %98s --- %2s\n",
+    &updateItem[copyCount].id, updateItem[copyCount].assetTag, updateItem[copyCount].status) == 3) {
+        if (updateItem[copyCount].id == id) { //Declaring if statement where copyCount stores registry number if ID matches.
+            regNum = copyCount;
+        }
+        copyCount++;//Assigning copyCount to keep iteration number as this corresponds to registry line.
+    }
+    fclose(copyReg); //Closing reading session safely.
+
+    //Declaring if statement to check if ID was failed, if so, failure message is printed and code 0 return actioned.
+    if (regNum == -1) {
+        printf("\nInput content updated to file failed! ID is not found!\n");
+        return 0;
+    }
+
+//Utilizing strncpy to overwrite with newAssetTag in the line where ID matched. Length is -1 to keep space for line cut.
+    strncpy(updateItem[regNum].assetTag, newAssetTag, sizeof(updateItem[regNum].assetTag) - 1);
+        updateItem[regNum].assetTag[sizeof(updateItem[regNum].assetTag) - 1] = '\0'; //Assigning said line cut.
+
+//The same code is recycled to work over the Status field.
+    strncpy(updateItem[regNum].status, newStatus, sizeof(updateItem[regNum].status) - 1);
+        updateItem[regNum].status[sizeof(updateItem[regNum].status) - 1] = '\0';
+
+//Opening file a second time to rewrite the registry with the corrected Asset Tag and Status.
+    FILE *rewriteReg = fopen ("logReg.txt", "w");
+        if (rewriteReg == NULL) { //Implementing opening success check.
+            printf("Error opening file! Case: REWRITE SESSION\n");
+            return 55; //Unique code return.
+        }
+
+//Utilizing a for loop to iterate the file, copyCount iterated the whole file and guarantees same entry count.
+        for (int i = 0; i < copyCount; i++) {
+
+//Utilizing fprintf to write in rewriteReg every line of code respecting format, extracting from the temporary variable.
+            fprintf(rewriteReg, "%d --- %s --- %s\n", updateItem[i].id, updateItem[i].assetTag, updateItem[i].status);
+        }
+    fclose(rewriteReg);//Closing rewrite session safely.
+
+//Printing at the end of execution a confirmation message to user.
+        printf("\nInput content updated to file succesfully!\n");
+        return 1; //return is coded to 1 by Grade B requirements.
+
+}// END OF UPDATE BLOCK
+////////////////EOF
