@@ -80,6 +80,7 @@ switch(userChoice){
             printf("%f average", average);
 
     break;
+    //Default case prints error message.
     default:
             printf("\n\n-----------ERROR-----------\nPlease pick an option from above, use number 1 or 2.\n Please try again.\n\n");
     break;

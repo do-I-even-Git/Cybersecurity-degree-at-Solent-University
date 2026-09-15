@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 
 int main() {
@@ -53,20 +52,18 @@ for (int j=0; j < daysCount; j++){
                 daysArray[j] = newValue;
                     sum += newValue;
                     
-                    
-                    if (j == 0) {
-                        lowest = daysArray[0];
-                        highest = daysArray[0];
-                    }   else {
-                            if (newValue < daysArray[0]){
-                                lowest = newValue;
-                            }
-                            if (newValue > daysArray[0]){
-                                highest = newValue;
-                            }
-                        }
-                    
-                    
+    //An if loop functioning on j's first iteration assigns the first array value as highest and lowest value.
+    if (j == 0) {
+        lowest = daysArray[0];
+        highest = daysArray[0];
+    }else { //after 1st iteration, each user input value compares against the lowest/highest, taking over when surpassing.
+        if (newValue < lowest) {
+            lowest = newValue;
+        }
+        if (newValue > highest) {
+            highest = newValue;
+        }
+    }                  
 }
 
 //A message is printed giving the user an option menu, depending on numerical input.
@@ -114,22 +111,15 @@ switch(userChoice){
         printf("Thanks for coming today. Buh bye :)");
         
     break;
+    //Default case prints error message and lets menu reset by do while.
     default:
     
-        printf("\n\n-----------ERROR-----------\nPlease pick an option from above, use number 1 or 2.\n Please try again.\n\n");        printf("\n\n-----------ERROR-----------\nPlease pick from displayed options. Use numbers allocated to options.\n");
-        printf("Please try again.\n\n");
-
+        printf("\n\n-----------ERROR-----------\nPlease pick an option from above, use number 1 or 2.\n Please try again.\n\n");
         
     break;
 }
-    
-    
-    
 
-} while (userChoice != 7);
+}  while (userChoice != 7); //the do-while condition releases function on activation of case 7, exit option.
 
-
-
-
-    return 0;
+return 7; //only code outside switch is return, making case 7 effectively program exit code. Exit coded to case.
 }
