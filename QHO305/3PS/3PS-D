@@ -5,26 +5,14 @@ int main(void) {
     //We declare a variable inventory for storing our values.
     int steps;
 
-
+        //Instruction is printed to obtain user input.
         printf("Please input step count now.\n\n");
         scanf("%d", &steps);
 
-    float km = (steps / 1250);
-    float calories = ((steps*40) / 1000);
-
-            printf("Steps: %d.\nKm equivalence: %2fKm.\nCalories burned: %2f.\n\n", steps, km, calories);
-
+        //Float variables store mathematical concatenation converting steps to km and calories according to Grade D spec.
+        float km = (steps / 1250);
+        float calories = ((steps*40) / 1000);
 
 
-
-
-
-
-
-
-
-
-
-return 0;
-}
-
+            //Results are printed to user.
+            printf("Steps: %d.\nKm equivalence: %.2f Km.\nCalories burned: %.2f calories.\n\n", steps, km, calories);

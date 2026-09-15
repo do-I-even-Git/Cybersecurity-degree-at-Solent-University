@@ -1,10 +1,8 @@
-//
-// Created by raulf on 15/07/2026.
-//
 #include <stdio.h>
 
 int main() {
 
+    //We declare a variable inventory for storing user input and Grade C necessary values.
     int steps;
     int j;
     int i = 2;
@@ -16,14 +14,14 @@ int main() {
     float caloriesTotale;
     int dayCount = 0;
 
-
+    //A while loop is used to continue iterating through menu logic, enabling ciclic functioning, as long as i is not 0.
     while (i != 0){
-
+        //Instruction is printed to obtain user input.
         printf("Would you like to record a new day's step count? :)\nY / N\n");
         scanf(" %c", &answer);
-        steps = 0;
+        steps = 0; //steps variable value is cleaned at the beginning of each iteration.
         switch (answer) {
-            case 'Y':
+            case 'Y': //Y adds a lifecycle to while, registers day, confirms, instructs, obtains, converts and displays.
                 i++;
                 dayCount++;
                 printf("--------------You answered YES--------------\n");
@@ -37,7 +35,7 @@ int main() {
                 printf("--------------         --------------\n");
             break;
 
-            case 'y':
+            case 'y': //Lowercase y case is covered identically.
                 i++;
                 dayCount++;
                 printf("--------------You answered YES--------------\n");
@@ -51,38 +49,37 @@ int main() {
                 printf("--------------         --------------\n");
             break;
 
-            case 'N':
+            case 'N': //N answer substracts a lifecycle from while,confirms choice and prints farewell.
                 i--;
                 printf("--------------You answered NO--------------\n ");
-                printf("");
                 printf("Have a steppy day! :)\n              - Goodbye. -\n");
             break;
 
-            case 'n':
+            case 'n': //Lowercase n is covered identically.
                 i--;
                 printf("--------------You answered NO--------------\n");
 
             break;
 
-            default:
+            default: //Default check adds a lifecycle, confirms invalid input, instructs and prints courtesy.
                 i++;
                 printf("--------------INVALID INPUT--------------\n");
                 printf("Please retry with either Y for YES, or N for NO.\n    Thank you for your patience.");
             break;
         }
-
+        //Calculated steps are added into a totale variable each iteration.
         stepsTotale += steps;
 
-    i--;
+    i--; //A lifecycle is substracted by default, balancing positive/invalid answer to reset, and exiting after a negative.
 
     }
 
+    //Results are printed to user after mathematical calculation using the step totale variable, to Grade C spec.
     kmTotale = (stepsTotale / 1250);
     caloriesTotale = ((stepsTotale * 40) / 1000.0);
     printf("%d days recorded. Here's a sum up:\n", dayCount);
     printf("%d total steps.\n%.2f total Kms walked.\n%.2f total calories burned.\n", stepsTotale, kmTotale, caloriesTotale);
-    printf("    -- Have a steppy day! :)\n              - Goodbye. -");
+    printf("    -- Have a steppy day! :)\n              - Goodbye. -"); //Farewell message is printed before exit.
 
 return 0;
 }
-

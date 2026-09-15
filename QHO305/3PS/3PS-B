@@ -5,6 +5,7 @@
 
 int main() {
 
+    //We declare a variable inventory for storing user input and Grade B necessary values.
     float steps;
     float stepsTotale;
     float km;
@@ -13,6 +14,7 @@ int main() {
     float caloriesTotale;
     float walkingMinutes;
     float minutesTotale;
+    //some integer variables need to be initiated to 0 or Y, despite being overwritten later, for proper functioning.
     int dayCount = 0;
     int stepCount = 0;
     int kmCount = 0;
@@ -21,21 +23,21 @@ int main() {
     int numberInput;
     char menuAnswer;
 
+    //Instruction is printed to obtain user input.
     printf("Ready to input a new day's data?\nY / N\n");
     scanf("%c", &answer);
 
+    //A do while loop is started to enable ciclical coding on our menu.
     do{
-
-
-
+        //Switch statement interprets user input.
         steps = 0;
         switch (answer) {
-            case 'Y':
-                dayCount++;
+            case 'Y': //if answer is positive, options are displayed,input stored, and a nested switch is accessed.
+                dayCount++; //The input is added to our day counter variable.
                 printf("What would you like to input today? :)\n1 -> Steps.\n2 -> Kms.\n3 -> Walking minutes.\n");
                 scanf("%d", &numberInput);
-                switch (numberInput) {
-                    case 1:
+                switch (numberInput) { //nested switch interprets second user input.
+                    case 1: //Step reg is added, choice confirmed, input instructed, value stored, converted and displayed.
                         stepCount++;
                         printf("--------------You chose STEPS--------------\n");
                         printf("Please now input step count below.\n\n");
@@ -48,7 +50,7 @@ int main() {
                         printf("--------------         --------------\n");
                     break;
 
-                    case 2:
+                    case 2: //Km reg is added, choice confirmed, input instructed, value stored, converted and displayed.
                         kmCount++;
                         printf("--------------You chose KMS--------------\n");
                         printf("Please now input km count below.\n\n");
@@ -62,7 +64,7 @@ int main() {
                         printf("--------------         --------------\n");
                     break;
 
-                    case 3:
+                    case 3: //Walkmin reg is added, choice confirmed, input instructed, value stored, converted and displayed.
                         walkminCount++;
                         printf("--------------You chose WALKING MINUTES--------------\n");
                         printf("Please now input walking minute count below.\n\n");
@@ -76,13 +78,13 @@ int main() {
                         printf("--------------         --------------\n");
                     break;
 
-                    default:
+                    default: //default checks inputs outside options. Prints error message.
                         printf("--------------INVALID CHOICE--------------\nPlease choose a number from the offered options.");
                     break;
 
-                }
+                } //CASE 'Y' ENDING
             break;
-            case 'y':
+            case 'y': //code is repeated with minuscule y, to cover both cases.
                 dayCount++;
                 printf("What would you like to input today? :)\n1 -> Steps.\n2 -> Kms.\n3 -> Walking minutes.\n");
                 scanf("%d", &numberInput);
@@ -134,39 +136,40 @@ int main() {
                         printf("--------------INVALID CHOICE--------------\nPlease choose a number from the above menu.");
                     break;
 
-                }
+                } //END OF 'y' CASE
             break;
 
-            case 'N':
+            case 'N': //In case of negative answer, confirmation and farewell message prints.
                 printf("--------------You answered NO--------------\n ");
                 printf("");
                 printf("Have a steppy day! :)\n              - Goodbye. -\n");
             break;
 
-            case 'n':
+            case 'n': //Lower case negative is covered identically.
                 printf("--------------You answered NO--------------\n");
             break;
 
-            default:
+            default: //Invalid inputs are checked with printed error message and instruction.
                 printf("--------------INVALID INPUT--------------\n");
                 printf("Please retry with either Y for YES, or N for NO.\n    Thank you for your patience.");
             break;
         }
-
+        //Calculated steps are added into a totale variable each iteration.
         stepsTotale += steps;
 
+    //After switch logic, user is asked if they'd like to return to main menu.
     printf("Wish to come back to main menu?\nY / N\n");
         scanf(" %c", &menuAnswer);
-    }
+    } //Do while checks for a positive case insensitive answer, everything else would result in loop exit.
     while (menuAnswer == 'Y' || menuAnswer == 'y');
 
-
+    //Results are printed to user after mathematical calculation using the step totale variable.
     kmTotale = (stepsTotale / 1250);
     caloriesTotale = ((stepsTotale * 40) / 1000.0);
     printf("%d days recorded. Here's a sum up:\n", dayCount);
     printf("%d Steps entries. | %d Kms entries. | %d walking minutes entries.\n", stepCount, kmCount, walkminCount);
     printf("%.2F total steps.\n%.2f total Kms walked.\n%.2f total calories burned.\n", stepsTotale, kmTotale, caloriesTotale);
-    printf("    -- Have a steppy day! :)\n              - Goodbye. -");
+    printf("    -- Have a steppy day! :)\n              - Goodbye. -"); //Farewell message is printed before exit.
 
 return 0;
 }
