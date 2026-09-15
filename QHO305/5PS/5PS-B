@@ -53,11 +53,11 @@ for (int j=0; j < daysCount; j++){
                 daysArray[j] = newValue;
                     sum += newValue;
 
-
+//An if loop functioning on j's first iteration assigns the first array value as highest and lowest value.    
     if (j == 0) {
         lowest = daysArray[0];
         highest = daysArray[0];
-    }  else {
+    }  else { //after 1st iteration, each user input value compares against the lowest/highest, taking over when surpassing.
             if (newValue < lowest) {
                 lowest = newValue;
             }
@@ -65,8 +65,9 @@ for (int j=0; j < daysCount; j++){
                 highest = newValue;
             }
         }
-
-    if (j == 50) {
+    
+//A courtesy warning is printed warning of last input available on j's last iteration.
+    if (j == 49) {
         printf("This is the last value you can input in this session.");
     }
                     
@@ -91,6 +92,10 @@ scanf("%d", &userChoice);
 //A switch statement directs the flow of code depending on input:
 //Input of 1 prints all registered temperatures.
 //Input of 2 calculates and prints an average of all temperatures.
+//Input of 3 prints out the values stored in lowest and highest. 
+//Input of 4 captures threshold value, uses it to separate array values, counts and displays results.
+//Input of 5 organizes days into weeks, calculates accurate averages and prints them.
+//Input of 7 prints out farewell message and exits the program.
 
 switch(userChoice){
     case 1:
@@ -115,10 +120,12 @@ switch(userChoice){
     break;
     case 4:
 
+//A float variable is declared to store user threshold input. Two int variables will store count of array values.
         float thresholdMarker;
         int belowTemp = 0;
         int aboveTemp = 0;
 
+//This block instructs user input, obtains it and runs a for loop through the array categorizing as above/below threshold.
         printf("Please input your temperature threshold now. Use 00.00 format, and °C temperatures.\n");
         scanf(" %f", &thresholdMarker);
         for (int i = 0; i < daysCount; i++) {
@@ -128,13 +135,14 @@ switch(userChoice){
                 aboveTemp++;
             }
         }
-
+//Results printed.
         printf("\nYour temperature threshold is %.2f°C.\n Of %d input temperatures:\n ", thresholdMarker, daysCount);
         printf("\n%d are above the threshold. \n%d are below the threshold.", aboveTemp, belowTemp);
 
     break;
     case 5:
 
+        //an inventory of float variables is declared to store days into weeks, int variables will hold weekday count values.
         float week1 = 0;
         float week2 = 0;
         float week3 = 0;
@@ -152,9 +160,11 @@ switch(userChoice){
         int dividend6 = 0;
         int dividend7 = 0;
         int dividend8 = 0;
-            int counter[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+        
+        //An array is declared to equip each week with a binary flag.
+        int counter[8] = {0, 0, 0, 0, 0, 0, 0, 0}; 
 
-
+        //If statements separate by week, counting weekdays, and binary flagging activation, from for loop iteration.
         for (int f=0; f < daysCount; f++) {
             if (f+1 >= 0 && f+1 <= 7) {
                 week1 += daysArray[f];
@@ -198,6 +208,7 @@ switch(userChoice){
             }
         }
 
+        //if statements print week averages dividing by each week's daycount, depending on binary flag activation.
         if (counter[0] == 1) {
             printf("\nThe average for week 1 is: %.2f", week1/dividend1);
         }
@@ -222,7 +233,7 @@ switch(userChoice){
 
     break;
     case 7:
-    
+        //printf statements confirm exit and display a farewell message.
         printf("\n\n\nExiting now...\n\n");
         printf("Thanks for coming today. Buh bye :)");
         
@@ -238,10 +249,7 @@ switch(userChoice){
     
     
 
-} while (userChoice != 7);
+} while (userChoice != 7); //the do-while condition releases function on activation of case 7, exit option.
 
-
-
-
-    return 0;
+    return 7; //only code outside switch is return, making case 7 effectively program exit code. Exit coded to case.
 }
